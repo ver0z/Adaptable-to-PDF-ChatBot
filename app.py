@@ -23,7 +23,7 @@ load_dotenv()
 
 
 def load_data():
-    
+
     # Carregamento do PDF e/ou do .pkl
 
     with st.spinner(text="Carregando – aguarde! Isso deve levar de 1 a 2 minutos."):
@@ -47,7 +47,7 @@ def load_data():
                 for page in pdf_reader.pages:
                     text += page.extract_text()
 
-                # TODO: É necessário que o texto analisado seja dividido em partes para que o modelo LLM \
+                # É necessário que o texto analisado seja dividido em partes para que o modelo LLM \
                 #        consiga utilizar o conteúdo por completo.
 
                 text_splitter = RecursiveCharacterTextSplitter(
@@ -59,14 +59,14 @@ def load_data():
                 chunk = text_splitter.split_text(text=text)
                 store_nome = 'ProcuradoriaGeral'
 
-                # TODO: Para evitar erros de EOFError que está relacionado a sobreescrita e arquivo vazio é necessário fazer primeiro
+                # Para evitar erros de EOFError que está relacionado a sobreescrita e arquivo vazio é necessário fazer primeiro
                 # a verificação se o arquivo já existe e se não está vazio, caso a ordem seja outra é possível que o programa fique estagnado em bug.
 
                 if not os.path.exists(f"{store_nome}.pkl"):
-                    # TODO: Transformar os chunks em embeddings
+                    # Transformar os chunks em embeddings
                     embeddings = OpenAIEmbeddings()
 
-                    # TODO: Armazenar os embeddings em um banco de vetores
+                    # Armazenar os embeddings em um banco de vetores
                     vectorStore = FAISS.from_texts(chunk, embedding=embeddings)
 
                     with open(f"{store_nome}.pkl", "wb") as f:
@@ -119,7 +119,7 @@ def main():
         docs = data_loaded.similarity_search(query=query, k=5)
 
         chain = conversation()
-        # método get_openai_callback utilizado para cálculo de quanto foi gasto a cada uso da OpenAI API 
+        # método get_openai_callback utilizado para cálculo de quanto foi gasto a cada uso da OpenAI API
         with get_openai_callback() as cb:
             response = chain.run(input_documents=docs, human_input=query)
             print(cb)
@@ -128,7 +128,7 @@ def main():
         for message in st.session_state.messages:  # Mostra as mensagens prévias
             with st.chat_message(message["role"]):
                 st.write(message["content"])
-        # Mostra a mensagem de resposta 
+        # Mostra a mensagem de resposta
         if st.session_state.messages[-1]["role"] != "assistant":
             with st.chat_message("assistant"):
                 with st.spinner("Thinking..."):
@@ -138,7 +138,7 @@ def main():
                     st.session_state.messages.append(message)
 
 
-#st.markdown(
+# st.markdown(
 #    "<p1 style='text-align: left; color: grey;'>Desenvolvido por [Evair](https://github.com/ver0z)</h1>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
