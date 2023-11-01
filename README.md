@@ -16,3 +16,6 @@ Para utilizar
    ```bash
    streamlit run app.py
    ```
+## Demo video
+
+[Demo video](https://github.com/ver0z/ChatBot-Unicamp-Vestibular/blob/main/Vid/ChatBot.mp4)
