@@ -18,4 +18,5 @@ Para utilizar
    ```
 ## Demo video
 
-[Demo video](https://github.com/ver0z/ChatBot-Unicamp-Vestibular/blob/main/Vid/ChatBot.mp4)
+https://github.com/ver0z/ChatBot-Unicamp-Vestibular/assets/23502680/0327c62c-05b0-40e6-bd4d-9f8dff8c9df3
+
